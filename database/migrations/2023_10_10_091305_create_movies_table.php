@@ -24,6 +24,7 @@ return new class extends Migration
             $table->text('about');
             $table->string('short_about');
             $table->boolean('featured');
+            $table->string('duration');
             $table->softDeletes();
             $table->timestamps();
         });
