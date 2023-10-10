@@ -11,11 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('user_premiums', function (Blueprint $table) {
+        Schema::create('reviews', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('package_id')->constrained('packages');
+            $table->foreignId('movie_id')->constrained('movies');
             $table->foreignId('user_id')->constrained('users');
-            $table->date('end_of_subscription');
+            $table->integer('star');
+            $table->text('review');
+            $table->unique(['user_id','movie_id']);
             $table->timestamps();
         });
     }
@@ -25,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('user_premiums');
+        Schema::dropIfExists('reviews');
     }
 };
