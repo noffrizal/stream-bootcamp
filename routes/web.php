@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\MovieController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,4 +22,5 @@ Route::get('/', function () {
 
 Route::group(['prefix' => 'admin'], function(){
     Route::get('/',[DashboardController::class, 'index']);
+    Route::resource('/movie', MovieController::class);
 });
