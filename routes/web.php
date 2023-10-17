@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Admin\MovieController;
 use Illuminate\Support\Facades\Route;
 
@@ -19,8 +20,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/admin/login',[LoginController::class, 'index'])->name('admin.login');
+Route::post('/admin/login',[LoginController::class, 'authenticate'])->name('admin.login');
 
 Route::group(['prefix' => 'admin'], function(){
-    Route::get('/',[DashboardController::class, 'index']);
+    Route::get('/',[DashboardController::class, 'index'])->name('admin.dashboard');
     Route::resource('/movie', MovieController::class);
 });
