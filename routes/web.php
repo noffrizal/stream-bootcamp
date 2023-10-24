@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Admin\MovieController;
 use App\Http\Controllers\Admin\TransactionController;
+use App\Http\Controllers\Member\RegisterController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,10 +18,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::view('/', 'index');
 
+// member routes
+Route::get('/register',[RegisterController::class, 'index'])->name('member.register');
+
+
+// admin routes
 Route::get('/admin/login',[LoginController::class, 'index'])->name('admin.login');
 Route::post('/admin/login',[LoginController::class, 'authenticate'])->name('admin.login.auth');
 
