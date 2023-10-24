@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Admin\MovieController;
+use App\Http\Controllers\Admin\TransactionController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,4 +29,5 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin.auth'], function(){
     Route::get('/',[DashboardController::class, 'index'])->name('admin.dashboard');
     Route::get('/logout', [LoginController::class, 'logout'])->name('admin.login.logout');
     Route::resource('/movie', MovieController::class);
+    Route::resource('/transaction', TransactionController::class);
 });

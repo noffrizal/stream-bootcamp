@@ -14,7 +14,13 @@ class TransactionController extends Controller
      */
     public function index()
     {
-        //
+        $relations = [
+            'package',
+            'user'
+        ];
+
+        $transactions = Transaction::with($relations)->get();
+        return view('admin.transactions',['transactions' => $transactions]);
     }
 
     /**
