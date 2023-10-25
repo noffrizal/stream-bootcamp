@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Member\RegisterController;
 use App\Http\Controllers\Admin\TransactionController;
 use App\Http\Controllers\Member\LoginController as MemberLoginController;
+use App\Http\Controllers\Member\DashboardController as MemberDashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,23 +23,27 @@ use App\Http\Controllers\Member\LoginController as MemberLoginController;
 
 Route::view('/', 'index');
 
-Route::get('/pricing',[PricingController::class, 'index'])->name('pricing');
+Route::get('/pricing', [PricingController::class, 'index'])->name('pricing');
+
 
 // member routes
-Route::get('/register',[RegisterController::class, 'index'])->name('member.register');
-Route::post('/register',[RegisterController::class, 'store'])->name('member.register.store');
+Route::get('/register', [RegisterController::class, 'index'])->name('member.register');
+Route::post('/register', [RegisterController::class, 'store'])->name('member.register.store');
 
-Route::get('/login',[MemberLoginController::class, 'index'])->name('member.login');
-Route::post('/login',[MemberLoginController::class, 'auth'])->name('member.login.auth');
+Route::get('/login', [MemberLoginController::class, 'index'])->name('member.login');
+Route::post('/login', [MemberLoginController::class, 'auth'])->name('member.login.auth');
 
+Route::group(['prefix' => 'member', 'middleware' => 'auth'], function () {
+    Route::get('/', [MemberDashboardController::class, 'index'])->name('member.dashboard');
+});
 
 
 // admin routes
-Route::get('/admin/login',[LoginController::class, 'index'])->name('admin.login');
-Route::post('/admin/login',[LoginController::class, 'authenticate'])->name('admin.login.auth');
+Route::get('/admin/login', [LoginController::class, 'index'])->name('admin.login');
+Route::post('/admin/login', [LoginController::class, 'authenticate'])->name('admin.login.auth');
 // admin route groups
-Route::group(['prefix' => 'admin', 'middleware' => 'admin.auth'], function(){
-    Route::get('/',[DashboardController::class, 'index'])->name('admin.dashboard');
+Route::group(['prefix' => 'admin', 'middleware' => 'admin.auth'], function () {
+    Route::get('/', [DashboardController::class, 'index'])->name('admin.dashboard');
     Route::get('/logout', [LoginController::class, 'logout'])->name('admin.login.logout');
     Route::resource('/movie', MovieController::class);
     Route::resource('/transaction', TransactionController::class);
