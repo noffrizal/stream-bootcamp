@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Admin\MovieController;
 use App\Http\Controllers\Admin\TransactionController;
+use App\Http\Controllers\Member\LoginController as MemberLoginController;
 use App\Http\Controllers\Member\RegisterController;
 use Illuminate\Support\Facades\Route;
 
@@ -22,13 +23,16 @@ Route::view('/', 'index');
 
 // member routes
 Route::get('/register',[RegisterController::class, 'index'])->name('member.register');
+Route::post('/register',[RegisterController::class, 'store'])->name('member.register.store');
+
+Route::get('/login',[MemberLoginController::class, 'index'])->name('member.login');
+
 
 
 // admin routes
 Route::get('/admin/login',[LoginController::class, 'index'])->name('admin.login');
 Route::post('/admin/login',[LoginController::class, 'authenticate'])->name('admin.login.auth');
-
-
+// admin route groups
 Route::group(['prefix' => 'admin', 'middleware' => 'admin.auth'], function(){
     Route::get('/',[DashboardController::class, 'index'])->name('admin.dashboard');
     Route::get('/logout', [LoginController::class, 'logout'])->name('admin.login.logout');

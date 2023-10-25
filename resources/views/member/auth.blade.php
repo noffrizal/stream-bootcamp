@@ -27,8 +27,7 @@
 
         <!-- Ornament -->
         <span class="fixed -z-10 top-0">
-            <img src="{{ asset('stream/assets/images/pricing_ornament.svg') }}" class="h-screen w-screen"
-                alt="stream" />
+            <img src="{{ asset('stream/assets/images/pricing_ornament.svg') }}" class="h-screen w-screen" alt="stream" />
         </span>
         <!-- ./ -->
 
@@ -43,58 +42,33 @@
 
                 <div class="pt-[85px] flex flex-col items-center gap-5 px-3">
                     <p class="text-sky-300 text-base font-semibold">
-                        START SIGN UP
+                        WELCOME BACK
                     </p>
                     <div class="font-bold text-white text-4xl lg:text-[45px] text-center capitalize leading-snug">
-                        Explore Movies
+                        Watch New Movie
                     </div>
 
                     <!-- Form login -->
                     <section class="w-11/12 max-w-[460px]">
-                        <form action="{{ route('member.register.store') }}" method="POST"
-                            class="mt-[70px] flex flex-col bg-white p-[30px] rounded-2xl gap-6">
-                            @csrf
+                        <form action="" class="mt-[70px] flex flex-col bg-white p-[30px] rounded-2xl gap-6">
                             <div class="form-input flex flex-col gap-3">
-                                <label for="name" class="text-base font-medium text-stream-dark">Name</label>
-                                <input type="text"
-                                    class="rounded-full py-3 pr-3 pl-6 text-stream-dark placeholder:text-stream-gray placeholder:font-normal font-medium outline outline-stream-gray outline-1 text-base focus:outline-indigo-600 input-stream"
-                                    placeholder="Your complete name" name="name" value="{{ old('name') }}" />
-                                @error('name')
-                                    <div style="color:red">{{ $message }}</div>
-                                @enderror
-                            </div>
-                            <div class="form-input flex flex-col gap-3">
-                                <label for="email" class="text-base font-medium text-stream-dark">Email
-                                    Address</label>
+                                <label for="email" class="text-base font-medium text-stream-dark">Email Address</label>
                                 <input type="email"
                                     class="rounded-full py-3 pr-3 pl-6 text-stream-dark placeholder:text-stream-gray placeholder:font-normal font-medium outline outline-stream-gray outline-1 text-base focus:outline-indigo-600 input-stream"
-                                    placeholder="Your email address" name="email" value="{{ old('email') }}" />
-                                @error('email')
-                                    <div style="color:red">{{ $message }}</div>
-                                @enderror
-                            </div>
-                            <div class="form-input flex flex-col gap-3">
-                                <label for="email" class="text-base font-medium text-stream-dark">Phone
-                                    Number</label>
-                                <input type="text"
-                                    class="rounded-full py-3 pr-3 pl-6 text-stream-dark placeholder:text-stream-gray placeholder:font-normal font-medium outline outline-stream-gray outline-1 text-base focus:outline-indigo-600 input-stream"
-                                    placeholder="0852xxxxxxx" name="phone_number" value="{{ old('phone_number') }}" />
-                                @error('phone_number')
-                                    <div style="color:red">{{ $message }}</div>
-                                @enderror
+                                    placeholder="Your email address" />
                             </div>
                             <div class="form-input flex flex-col gap-3">
                                 <label for="password" class="text-base font-medium text-stream-dark">Password</label>
                                 <input type="password"
                                     class="rounded-full py-3 pr-3 pl-6 text-stream-dark placeholder:text-stream-gray placeholder:font-normal font-medium outline-stream-gray outline outline-1 text-base focus:outline-indigo-600 input-stream"
-                                    placeholder="Your password" name="password" value="{{ old('password') }}"/>
-                                @error('password')
-                                    <div style="color:red">{{ $message }}</div>
-                                @enderror
+                                    placeholder="Your password" />
                             </div>
-                            <button type="submit" class="bg-indigo-600 rounded-full py-3 mt-4 text-center">
+                            <a href="/" class="bg-indigo-600 rounded-full py-3 mt-4 text-center">
                                 <span class="font-semibold text-white text-base">Continue</span>
-                            </button>
+                            </a>
+                            <!-- <button type="submit" class="bg-indigo-600 rounded-full py-3 mt-4 text-center">
+                                <span class="font-semibold text-white text-base">Continue</span>
+                            </button> -->
                         </form>
                     </section>
                 </div>
@@ -105,6 +79,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="{{ asset('stream/assets/script/script.js') }}"></script>
+
 </body>
 
 </html>
