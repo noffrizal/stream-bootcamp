@@ -14,7 +14,8 @@ class PricingController extends Controller
         $goldPackage = Package::where('name', 'gold')->first();
 
         return view('member.pricing',[
-            'standard' => '$standarPackage',
+            'standard' => $standardPackage,
+            'gold' => $goldPackage
 
         ]);
     }
