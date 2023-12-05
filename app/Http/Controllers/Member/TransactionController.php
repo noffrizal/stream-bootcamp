@@ -6,17 +6,18 @@ use App\Models\Package;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Transaction;
 
 class TransactionController extends Controller
 {
     public function store(Request $request)
     {
         $package = Package::find($request->package_id);
-        $transaction = $request->user()->transactions()->create([
+        $transaction = Transaction::create([
             'package_id' => $package->id,
             'user_id' => auth()->user()->id,
             'amount' => $package->price,
-            'transaction_code' => Str::random(10),
+            'transaction_code' => strtoupper(Str::random(10)),
             'status' => 'pending',
         ]);
 
@@ -24,7 +25,7 @@ class TransactionController extends Controller
 
         $params = [
             'transaction_details' => [
-                'order_id' => $transaction->code,
+                'order_id' => $transaction->transaction_code,
                 'gross_amount' => $transaction->amount,
             ],
             'customer_details' => [
