@@ -112,7 +112,7 @@
                                 </div>
                             </div>
 
-                            <form action="" method="post">
+                            <form action="{{ route('member.transaction.store') }}" method="post">
                                @csrf
                                <input type="hidden" name="package_id" value="{{ $standard->id }}">
                                 <button type="submit"
@@ -178,7 +178,7 @@
                                 </div>
                             </div>
 
-                            <form action="" method="post">
+                            <form action="{{ route('member.transaction.store') }}" method="post">
                                 @csrf
                                 <input type="hidden" name="package_id" value="{{ $gold->id }}">
                                  <button type="submit"
