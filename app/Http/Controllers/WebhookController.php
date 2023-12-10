@@ -16,22 +16,24 @@ class WebhookController extends Controller
         $orderId = $notif->order_id;
         $fraudStatus = $notif->fraud_status;
 
+        $status = '';
+
         if ($transactionStatus == 'capture'){
             if ($fraudStatus == 'accept'){
-                    // TODO set transaction status on your database to 'success'
-                    // and response with 200 OK
-                }
-            } else if ($transactionStatus == 'settlement'){
-                // TODO set transaction status on your database to 'success'
-                // and response with 200 OK
-            } else if ($transactionStatus == 'cancel' ||
-              $transactionStatus == 'deny' ||
-              $transactionStatus == 'expire'){
-              // TODO set transaction status on your database to 'failure'
-              // and response with 200 OK
-            } else if ($transactionStatus == 'pending'){
-              // TODO set transaction status on your database to 'pending' / waiting payment
-              // and response with 200 OK
+              $status = 'success';
             }
-    }
-}
+          } else if ($transactionStatus == 'settlement'){
+            $status = 'success';
+          } else if ($transactionStatus == 'cancel' ||
+          $transactionStatus == 'deny' ||
+          $transactionStatus == 'expire'){
+            $status = 'failure';
+          } else if ($transactionStatus == 'pending'){
+            $status = 'pending';
+          }
+
+          return response()->json(null);
+        }
+
+      }
+
