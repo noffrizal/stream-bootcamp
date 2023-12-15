@@ -11,6 +11,7 @@ use App\Http\Controllers\Member\LoginController as MemberLoginController;
 use App\Http\Controllers\Member\DashboardController as MemberDashboardController;
 use App\Http\Controllers\Member\MovieController as MemberMovieController;
 use App\Http\Controllers\Member\TransactionController as MemberTransactionController;
+use App\Http\Controllers\WebhookController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,6 +36,11 @@ Route::post('/register', [RegisterController::class, 'store'])->name('member.reg
 Route::get('/login', [MemberLoginController::class, 'index'])->name('member.login');
 Route::post('/login', [MemberLoginController::class, 'auth'])->name('member.login.auth');
 
+Route::post('/payment-notification',[WebhookController::class, 'handler'])->withoutMiddleware(            \App\Http\Middleware\VerifyCsrfToken::class,
+)->name('payment.notification');
+
+Route::view('/payment-finish', 'member.payment-finish')->name('member.payment-finish');
+
 Route::group(['prefix' => 'member', 'middleware' => 'auth'], function () {
     Route::get('/', [MemberDashboardController::class, 'index'])->name('member.dashboard');
 
@@ -43,7 +49,7 @@ Route::group(['prefix' => 'member', 'middleware' => 'auth'], function () {
 
     Route::post('/transaction',[MemberTransactionController::class, 'store'])->name('member.transaction.store');
 
-    Route::view('payment-finish', 'member.payment-finish')->name('member.payment-finish');
+
 });
 
 
