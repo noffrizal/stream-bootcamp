@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\WebhookController;
 use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Admin\MovieController;
 use App\Http\Controllers\Member\PricingController;
@@ -8,10 +9,10 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Member\RegisterController;
 use App\Http\Controllers\Admin\TransactionController;
 use App\Http\Controllers\Member\LoginController as MemberLoginController;
-use App\Http\Controllers\Member\DashboardController as MemberDashboardController;
 use App\Http\Controllers\Member\MovieController as MemberMovieController;
+use App\Http\Controllers\Member\DashboardController as MemberDashboardController;
 use App\Http\Controllers\Member\TransactionController as MemberTransactionController;
-use App\Http\Controllers\WebhookController;
+use App\Http\Controllers\Member\UserPremiumController as MemberUserPremiumController;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,7 +50,7 @@ Route::group(['prefix' => 'member', 'middleware' => 'auth'], function () {
 
     Route::post('/transaction',[MemberTransactionController::class, 'store'])->name('member.transaction.store');
 
-
+    Route::get('/subscription',[MemberUserPremiumController::class, 'index'])->name('member.subscription');
 });
 
 

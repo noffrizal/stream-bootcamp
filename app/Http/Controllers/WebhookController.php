@@ -36,31 +36,39 @@ class WebhookController extends Controller
             $status = 'pending';
           }
 
-          $transaction = Transaction::where('transaction_code', $orderId)->first();
-          $package = Package::find($transaction->package_id);
+          $transaction = Transaction::with('package')->where('transaction_code', $orderId)->first();
+
 
           if ($status === 'success'){
             $userPremium = UserPremium::where([
-                'user_id' => $transaction->user_id,
-                'package_id' => $package->id,
-                ]);
+                'user_id' => $transaction->user_id])->first();
 
                 if($userPremium)
                 {
                     $endOfSubscription =$userPremium->end_of_subscription;
                     $date = Carbon::createFromDate('Y-m-d', $endOfSubscription);
-                    $newEndOfSubscription = $date->addDay($package->max_days);
+                    $newEndOfSubscription = $date->addDay($transaction->package->max_days)->format('Y-m-d');
+
+                    $userPremium->update([
+                      'package_id' => $transaction->package->id,
+                      'end_of_subscription' => $newEndOfSubscription,
+
+                    ]);
                 }else{
                 UserPremium::create([
-                    'package_id' => $package->id,
+                    'package_id' => $transaction->package->id,
                     'user_id' => $transaction->user_id,
-                    'end_of_subscription' => now()->addDay($package->max_days),
+                    'end_of_subscription' => now()->addDay($transaction->package->max_days),
                     ]);
                 }
 
             // $endOfSubscription = Carbon::now()
 
           }
+
+          $transaction->update([
+            'status' => $status
+          ]);
 
           return response()->json(null);
         }
